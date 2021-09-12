@@ -1,17 +1,17 @@
 ---
-title: Requirements
+title: Требования
 slug: /
 ---
 
 ### Requirements
 
 * [GIT](https://git-scm.com/downloads/)
-* [PHP](https://www.php.net/) >= 7.4 *(8.0 is recommended)*
+* [PHP](https://www.php.net/) >= 7.4 *(8.0 Рекомендовано)*
 * [Composer](https://getcomposer.org/download/)
-* PHP Extensions:
+* PHP Расширения:
 	 * OpenSSL PHP Extension
 	 * PDO PHP Extension
 	 * Mbstring PHP Extension
 	 * Tokenizer PHP Extension
-	 * BCMath PHP Extension *(required when the Hash ID feature is enabled)*
-	 * Intl Extension *(required when you use the [Localization Container](../additional-features/apiato-containers/localization.md))*
+	 * BCMath PHP Extension *(требуется, если включена функция Hash ID)*
+	 * Intl Extension *(требуется при использовании [Localization Container](../additional-features/apiato-containers/localization.md))*

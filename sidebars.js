@@ -1,7 +1,7 @@
 module.exports = {
   docs: [
     {
-      label: 'Getting Started',
+      label: 'Приступая к работе',
       type: 'category',
       items: [
         'getting-started/requirements',

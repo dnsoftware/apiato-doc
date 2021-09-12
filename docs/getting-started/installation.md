@@ -1,5 +1,5 @@
 ---
-title: Installation
+title: Установка
 ---
 
 * [Apiato Installation](#App)

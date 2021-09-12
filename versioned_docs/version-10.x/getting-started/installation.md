@@ -1,88 +1,87 @@
 ---
-title: Installation
+title: Установка 
 ---
 
-* [Apiato Installation](#App)
-	* [Project Setup](#Project-Setup)
-	* [Database Setup](#Setup-Database)
-	* [OAuth Setup](#Prepare-OAuth)
-	* [Documentation Setup](#Documentation)
-	* [Testing Setup](#Testing)
-* [Environment Setup](#Development-Environment)
-	* [Using Docker and Laradock](#Using-Docker-With-Laradock)
-	* [Using Vagrant and Homestead](#Using-Vagrant-Using-Homestead)
-	* [Using MAMP/WAMP or something else](#Using-anything-else)
+* [Установка Apiato](#App)
+	* [Установка Проекта](#Project-Setup)
+	* [Установка Базы данных](#Setup-Database)
+	* [Установка OAuth](#Prepare-OAuth)
+	* [Установка документации](#Documentation)
+	* [Тестирование Установки](#Testing)
+* [Настройка окружения](#Development-Environment)
+	* [Использование Docker и Laradock](#Using-Docker-With-Laradock)
+	* [Использование Vagrant и Homestead](#Using-Vagrant-Using-Homestead)
+	* [Использование MAMP/WAMP или чего-нибудь другого](#Using-anything-else)
 * [Play](#Play)
 
 
-## Apiato Application Installation {#App}
+## Установка приложения Apiato  {#App}
 
-### Project Setup Via Composer {#Project-Setup}
+### Настройка проекта через Composer {#Project-Setup}
 
-If you already have `php` and `composer` installed on your computer ([read requirements](../)) you may create a new Apiato project using the command below:
+Если у вас уже есть `php` и `composer` на компьютере ([read requirements](../)) вы можете создать новый Apiato проект с помощью следующей команды:
 
 ```shell
 composer create-project apiato/apiato my-api
 ```
 
-#### The Apiato Installer {#apiato-installer}
+#### Установщик Apiato {#apiato-installer}
 
-Or, you may install the Apiato Installer as a global Composer dependency:  
+Или, вы можете установить Apiato Installer как глобальную Composer зависимость:  
 
 ```shell
 composer global require apiato/installer
 ```
 
-Then create a new Apiato project using Apiato Installer:
+Потом создать новый Apiato проект с помощью Apiato Installer:
 ```shell
 apiato new my-api
 ```
 
-Advantages of using Apiato Installer:
-* After your project installed, you will be asked to choose containers you want to install in your fresh project.
-* You can install the latest stable version (by default), or the latest development version of Apiato using `--dev` option.
-* You can initial a new git repository for your project using `--git` option.
+Преимущества использования установщика Apiato:
+* После установки вашего проекта вам будет предложено выбрать контейнеры, которые вы хотите установить в новом проекте.
+* Вы можете установить последнюю стабильную версию (по умолчанию) или последнюю разрабатываемую версию Apiato, используя `--dev` флаг.
+* Вы можете создать новый репозиторий git для своего проекта, используя `--git` флаг.
 
 :::caution
-Make sure to place Composer's system-wide vendor bin directory in your `$PATH` so the apiato executable can be located by your system. This directory exists in different locations based on your operating system; however, some common locations include:
+Обязательно поместите общесистемный каталог bin поставщика Composer в свою `$PATH` переменную таким образом apiato исполняемый файл может быть найден вашей системой. Этот каталог существует в разных местах в зависимости от вашей операционной системы; однако некоторые общие местоположения включают:
 
 macOS: `$HOME/.composer/vendor/bin`
 Windows: `%USERPROFILE%\AppData\Roaming\Composer\vendor\bin`
 GNU / Linux Distributions: `$HOME/.config/composer/vendor/bin` or `$HOME/.composer/vendor/bin`
 :::
 
-For convenience, the Apiato installer can also create a Git repository for your new project. To indicate that you want a Git repository to be created, pass the `--git` flag when creating a new project:
+Для удобства установщик Apiato также может создать репозиторий Git для вашего нового проекта. Чтобы указать, что вы хотите создать репозиторий Git, передайте флаг `--git` при создании нового проекта:
 
 ```shell
 apiato new my-api --git
 ```
 
-This command will initialize a new Git repository for your project and automatically commit the base Apiato skeleton. The `git` flag assumes you have properly installed and configured Git ([read requirements](../)). You can also use the `--branch` flag to set the initial branch name:
+Эта команда инициализирует новый репозиторий Git для вашего проекта и автоматически зафиксирует базовый скелет Apiato. `git` flag предполагает, что вы правильно установили и настроили Git ([read requirements](./)). Вы также можете использовать флаг --branch, чтобы установить начальное имя ветки.:
 
 ```shell
 apiato new my-api --git --branch="main"
 ```
 
-### Database Setup {#Setup-Database}
+### Настройка базы данных {#Setup-Database}
 
-1) Migrate the Database:
+1) Миграции:
 
-Run the migration artisan command:
+Запустите artisan команду миграции:
 
 ```shell
 php artisan migrate
 ```
 
-2) Seed the database with the artisan command:
+2) Заполните базу данных:
 
 ```shell
 php artisan db:seed
 ```
 
-3) Optional. By default, Apiato seeds a "Super User", given the default `admin` role (the role has no Permissions set
-to it).
+3) По желанию. По умолчанию Apiato создает "суперпользователя", учитывая роль администратора по умолчанию (для этой роли не установлены разрешения)..
 
-To give the `admin` role, access to all the seeded permissions in the system, run the following command, at any time.
+Чтобы предоставить роли `admin` доступ ко всем начальным разрешениям в системе, выполните следующую команду в любое время.
 
 ```
 php artisan apiato:permissions:toRole admin
@@ -90,78 +89,76 @@ php artisan apiato:permissions:toRole admin
 
 ### OAuth 2.0 Setup {#Prepare-OAuth}
 
-1) Create encryption keys to generate secure access tokens and create "personal access" and "password grant" clients
-which will be used to generate access tokens:
+1) Создайте ключи шифрования для создания токенов безопасного доступа и создайте "personal access" и "password grant" клиенты, которые будут использоваться для генерации токенов доступа:
 
 ```shell
 php artisan passport:install
 ```
 
-### Documentation Setup {#Documentation}
+### Настройка документации {#Documentation}
 
-1) Install [ApiDocJs](http://apidocjs.com/) using NPM or your favorite dependencies manager:
+1) Установите [ApiDocJs](http://apidocjs.com/) с помощью NPM или вашего любимого менеджера зависимостей:
 
 ```shell
 npm install
 ```
 
-2) Run `php artisan apiato:apidoc`
+2) Выполните `php artisan apiato:apidoc`
 
-##### Visit [API Docs Generator](../additional-features/apiato-containers/documentation) for more details.
+##### Посетите [API Docs Generator](../additional-features/apiato-containers/documentation) чтобы узнать подробнее.
 
-### Testing Setup {#Testing}
+### Настройка тестирования {#Testing}
 
-1) Open `phpunit.xml` and make sure the environments are correct for your domain.
+1) Откройте `phpunit.xml` и убедитесь, что окружение подходит для вашего домена.
 
-2) run the tests
+2) запустите тесты
 
 ```shell
 vendor/bin/phpunit
 ```
 
-## Development Environment Setup {#Development-Environment}
+## Настройка среды разработки {#Development-Environment}
 
-You can run **Apiato** on your favorite environment. Below you'll see how you can run it on top of
-[Vagrant](https://www.vagrantup.com/) (using [Laravel Homestead](https://laravel.com/docs/homestead)) or
-[Docker](https://www.docker.com/) (using [Laradock](https://github.com/Laradock/laradock)).
+Вы можете запустить Apiato в своей любимой среде. Ниже вы увидите, как запустить его поверх
+[Vagrant](https://www.vagrantup.com/) (using [Laravel Homestead](https://laravel.com/docs/homestead)) или
+[Docker](https://www.docker.com/) (используя [Laradock](https://github.com/Laradock/laradock)).
 
-We'll see how to use both tools, and you can pick one, or you can use other options like
-[Laravel Valet](https://laravel.com/docs/valet), [Laragon](https://laragon.org/) or even run it directly on your machine.
+Мы увидим, как использовать оба инструмента, и вы можете выбрать один или другие варианты, например
+[Laravel Valet](https://laravel.com/docs/valet), [Laragon](https://laragon.org/) или даже запустить его прямо на вашем компьютере.
 
 > **Heads up!** <br/>
 > The ICANN has now officially approved `.dev` as a generic top level domain (gTLD). Therefore, it is **not** recommended
 > to use `.dev` domains anymore in your local development setup! We use `.test`, however, you may change it to `.example`, or `.localhost` or whatever suits your needs. [Read more](http://www.faqs.org/rfcs/rfc2606.html).
 
-### Using Docker (with Laradock) {#Using-Docker-With-Laradock}
+### Использование Docker (с Laradock) {#Using-Docker-With-Laradock}
 
-**Laradock** is a Docker PHP development environment. It facilitates running PHP Apps on Docker.
+Laradock - это среда разработки Docker для PHP. Она облегчает запуск приложений PHP на Docker.
+Установка [Laradock](https://github.com/LaraDock/laradock#installation).
 
-Install [Laradock](https://github.com/LaraDock/laradock#installation).
-
-Navigate into the `laradock` directory:
+Перейдите в каталог `laradock`:
 
 ```shell
 cd laradock
 ```
-This directory contains a `docker-compose.yml` file. (From the LaraDock project).
+Этот каталог содержит файл docker-compose.yml. (Из проекта LaraDock).
 
-If you haven't done so, rename `env-example` to `.env`.
+Если вы этого еще не сделали, переименуйте env-example в .env.
 
 ```shell
 cp env-example .env
 ```
 
-Run the Docker containers:
+Запустите контейнеры Docker:
 
 ```shell
 docker-compose up -d nginx mysql redis beanstalkd
 ```
 
-Make sure you are setting the `Docker IP` as `Host` for the `DB` and `Redis`  in your `.env` file.
+Убедитесь, что вы устанавливаете `Docker IP` как `Host` для `DB` и `Redis` в файле `.env`.
 
-Add the domain to the Hosts file: `/etc/hosts`. We'll be using `apiato.test` as local domain (you can change it if you want).
+Добавьте домен в файл Hosts: `/etc/hosts`. Мы будем использовать apiato.test в качестве локального домена (вы можете изменить его, если хотите).
 
-Map the domain and its subdomains to 127.0.0.1:
+Сопоставьте домен и его поддомены с 127.0.0.1:
 
 ```text
 127.0.0.1  apiato.test
@@ -169,26 +166,25 @@ Map the domain and its subdomains to 127.0.0.1:
 127.0.0.1  admin.apiato.test
 ```
 
-If you're using NGINX or Apache, make sure the **server_name** (in case of NGINX) or **ServerName** (in case of Apache)
-in your server config file, is set to the following `apiato.test api.apiato.test admin.apiato.test`.
-*(Also don't forget to point the **Root** or **DocumentRoot** to the public directory inside apiato `apiato/public`)*.
+Если вы используете NGINX или Apache, убедитесь, что server_name (в случае NGINX) или ServerName (в случае Apache) в файле конфигурации вашего сервера установлены следующие `apiato.test api.apiato.test admin.apiato.test`.
+*(Также не забудьте указать **Root** или **DocumentRoot** в публичном каталоге внутри apiato `apiato/public`)*.
 
-### Using Vagrant (with Laravel Homestead) {#Using-Vagrant-Using-Homestead}
+### Использование Vagrant (с Laravel Homestead) {#Using-Vagrant-Using-Homestead}
 
-**Laravel Homestead** is installed by default. If you have removed homestead you can install it using  
+Laravel Homestead установлен по умолчанию. Если вы удалили Homestead, вы можете установить его, используя  
 ```shell
 composer require laravel/homestead --dev
 ```  
   
-#### Configure Homestead:
+#### Настройка Homestead:
 
-Create the Homestead config file:
+Создайте файл конфигурации Homestead:
 
 ```shell
 vendor/bin/homestead make
 ```
 
-Map the `api.apiato.test` domain to the project public directory - Example:
+Сопоставьте домен `api.apiato.test` с общедоступным каталогом проекта - Пример:
 
 ```text
 sites:
@@ -196,7 +192,7 @@ sites:
   	  to: /{full-path-to}/apiato/public
 ```
 
-You can also map other domains like `apiato.test` and `admin.apiato.test` to other web apps:
+Вы также можете сопоставить другие домены, такие как apiato.test и admin.apiato.test, с другими веб-приложениями:
 
 ```text
 	- map: apiato.test
@@ -205,10 +201,7 @@ You can also map other domains like `apiato.test` and `admin.apiato.test` to oth
   	  to: /{full-path-to}/clients/web/admin
 ```
 
-Note: in the example above the `/{full-path-to}/clients/web/***` are separate apps, who live on their own repositories
-and in different folder then the Apiato one. If your Admins, Users or other type of Apps are within Apiato, then you
-must point them all to the Apiato project folder `/{full-path-to}/apiato/public`. So in that case you would have
-something like this:
+Примечание: в приведенном выше примере «{full-path-to} clientweb» - это отдельные приложения, которые живут в своих собственных репозиториях и в другой папке, чем Apiato. Если ваши администраторы, пользователи или другие типы приложений находятся в Apiato, вы должны указать их всех в папку проекта Apiato `{full-path-to} apiatopublic`. В этом случае у вас будет что-то вроде этого:
 
 ```text
     - map: api.apiato.test
@@ -219,13 +212,13 @@ something like this:
       to: /{full-path-to}/apiato/public
 ```
 
-#### Configure Hosts:
+#### Настройка Hosts:
 
-Open the hosts file on your local machine `/etc/hosts`.
+Откройте файл hosts на вашем локальном компьютере `/etc/hosts`.
 
-*We'll be using `apiato.test` as local domain (you can change it if you want).*
+Мы будем использовать apiato.test в качестве локального домена (вы можете изменить его, если хотите).
 
-Map the domain and its subdomains to the Vagrant IP Address:
+Сопоставьте домен и его поддомены с Vagrant IP Address:
 
 ```text
 192.168.10.10   apiato.test
@@ -233,55 +226,55 @@ Map the domain and its subdomains to the Vagrant IP Address:
 192.168.10.10   admin.apiato.test
 ```
 
-If you're using NGINX or Apache, make sure the **server_name** (in case of NGINX) or **ServerName** (in case of Apache)
-in your server config file, is set to the following `apiato.test api.apiato.test admin.apiato.test`.
-*(Also don't forget to set your **root** or **DocumentRoot** to the public directory inside apiato `apiato/public`)*.
+Если вы используете NGINX или Apache, убедитесь, что **server_name** (в случае NGINX) или **ServerName** (в случае Apache)
+в файле конфигурации вашего сервера установлены следующие `apiato.test api.apiato.test admin.apiato.test`.
+*(Также не забудьте установить свой **root** или **DocumentRoot** в публичный каталог внутри apiato `apiato/public`)*.
 
-Run the Virtual Machine:
+Запустите виртуальную машину:
 
 ```shell
 homestead up --provision
 ```
 
-*If you see `No input file specified` on the sub-domains!
-try running this command `homestead halt && homestead up --provision`.*
+*Если вы видите `No input file specified` на поддоменах!
+попробуйте запустить эту команду `homestead halt && homestead up --provision`.*
 
-### Using anything else {#Using-anything-else}
+### Используя что-нибудь еще {#Using-anything-else}
 
-If you're not into virtualization solutions, you can set up your environment directly on your machine. Check the
-[software's requirements list](../).
+Если вы не используете решения виртуализации, вы можете настроить среду прямо на своем компьютере. Проверьте
+[software's requirements list](/).
 
-## Let's Play {#Play}
+## Давайте запустим {#Play}
 
-Now let's see it in action
+Теперь давайте посмотрим это в действии
 
-Open your web browser and visit:
+Откройте свой браузер и наберите:
 
-- `http://apiato.test` You should see an HTML page, with `Apiato` in the middle.
-- `http://api.apiato.test` You should see a response like this:
+- `http://apiato.test` Вы должны увидеть HTML-страницу с `Apiato` в центре.
+- `http://api.apiato.test` Вы должны увидеть такой ответ:
 ```json
 [
 "Welcome to Apiato"
 ]
 ```
 
-Open your HTTP client and call:
+Откройте свой HTTP-клиент и вызовите:
 
-- `http://api.apiato.test/` You should see a JSON response with message: `"Welcome to apiato."`,
-- `http://api.apiato.test/v1` You should see a JSON response with message: `"Welcome to apiato (API V1)."`,
+- `http://api.apiato.test/` Вы должны увидеть ответ JSON с сообщением: `"Welcome to apiato."`,
+- `http://api.apiato.test/v1` Вы должны увидеть ответ JSON с сообщением: `"Welcome to apiato (API V1)."`,
 
-Make some HTTP calls to the API:
+Сделайте несколько HTTP-вызовов API:
 
-*To make the calls you can use [Postman](https://www.getpostman.com/), [HTTPIE](https://github.com/jkbrzt/httpie) or
-any other tool you prefer.*
+*Для совершения вызовов вы можете использовать [Postman](https://www.getpostman.com/), [HTTPIE](https://github.com/jkbrzt/httpie) or
+любой другой инструмент, который вы предпочитаете.*
 
-Let's test the (user registration) endpoint `http://api.apiato.test/v1/register` with **cURL**:
+Давайте протестируем (регистрацию пользователя) endpoint `http://api.apiato.test/v1/register` с **cURL**:
 
 ```shell
 curl -X POST -H "Accept: application/json" -H "Cache-Control: no-cache" -F "email=John@Doe.me" -F "password=so-secret" -F "name=John Doe" "http://api.apiato.test/v1/register"
 ```
 
-You should get a response like this:
+Вы должны получить такой ответ:
 
 Header:
 ```text
