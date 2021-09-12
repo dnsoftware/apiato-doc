@@ -1,68 +1,66 @@
 ---
-title: Architecture
+title: Архитектура
 ---
 
-* [Porto Introduction](#introduction)
-  * [The Containers Layer](#introduction)
-    * [Container](#porto)
-    * [Section](#porto)
-  * [The Ship Layer](#introduction)
-* [Create a custom Container](#porto-new-container)
-  * [Using the Code Generator](#porto-new-container-code-generator)
-  * [Container Conventions](#containter-conventions)
+* [Введение в Porto](#introduction)
+  * [Слой 'Контейнеры'](#introduction)
+    * [Контейнер](#porto)
+    * [Секция](#porto)
+  * [Слой 'Корабль'](#introduction)
+* [Создать собственный Контейнер](#porto-new-container)
+  * [Использование генератора кода](#porto-new-container-code-generator)
+  * [Соглашения по именованию Контейнеров](#containter-conventions)
 
 
 
 ## Porto SAP {#porto}
 
-### Introduction {#introduction}
+### Введение {#introduction}
 
-[Porto](https://github.com/Mahmoudz/Porto) is the default and recommended architecture for building apps on Apiato.
+[Porto](https://github.com/Mahmoudz/Porto) - это стандартная и рекомендуемая архитектура для создания приложений на Apiato.
 
-Apiato also supports the popular MVC architecture (with a little modifications). The Apiato features are written using Porto, but can be used by any architecture.
+Apiato также поддерживает популярную архитектуру MVC (с небольшими изменениями). Функции Apiato написаны с использованием Porto, но могут использоваться любой архитектурой..
 
 
-### About Porto  {#porto}
+### О Porto  {#porto}
 
-Porto is an architecture that consists of 2 layers the **Containers** layer and **Ship** layer.
+Porto - это архитектура, состоящая из 2-х слоев: слоя `Контейнеры` и слоя `Корабль`.
 
-- [**The Containers layer**](https://github.com/Mahmoudz/Porto#2-containers-layer) holds all your application business logic code.
-- [**The Ship layer**](https://github.com/Mahmoudz/Porto#1-ship-layer) holds the infrastructure code (your shared code between all Containers).
+- [**Слой Контейнеры**](https://github.com/Mahmoudz/Porto#2-containers-layer) содержит весь код бизнес-логики вашего приложения.
+- [**Слой Корабль**](https://github.com/Mahmoudz/Porto#1-ship-layer) содержит код инфраструктуры (ваш общий код для всех контейнеров).
 
-The Containers layer consists of **Containers**. These containers are grouped into isolated **Sections**, to easily move them around.
+Слой контейнеров состоит из **Контейнеров**. Эти контейнеры сгруппированы в изолированные **Секции**, чтобы их было легко перемещать.
 
-- [**A Container**](https://github.com/Mahmoudz/Porto#Containers) can be a **feature**, or can be a wrapper around a RESTful API resource, or anything else. A container is allowed to depend on other containers.
-- [**A Section**](https://github.com/Mahmoudz/Porto#Sections) (is a group of related containers), it can be **service** _(micro or bigger)_, or a sub-system within the main system, or antyhing else. A Section is not allowed to directly communicate with another service, except via Events or Commands.
+- [**Контейнер**](https://github.com/Mahmoudz/Porto#Containers) может быть **функцией**, или может быть оберткой вокруг ресурса API RESTful, или чем-то еще. Контейнер может зависеть от других контейнеров.
+- [**Секция**](https://github.com/Mahmoudz/Porto#Sections) (это группа связанных контейнеров), это может быть **сервис** _(маленький или большой)_, или подсистема в основной системе, или что-то еще. Секции не разрешено напрямую общаться с другой службой, кроме как через События или Команды.
 
-The default Apiato Sections:
+Секции Apiato по умолчанию:
 
-- **The App Section**: is the only default section Apiato provides, it contains all the default containers. You can create additional sections anytime, and rename them to anything you want. (ex: Inventory Section, Shipping Section, Order Section, Payment Section...)
-- **The Vendor**: is a special Section, it only contains installed and reusable Containers. Similar to the vendor directory at the root. Any Section is allowed to depend on the Vendor Section.
-
----
-
-Spending 30 minutes, reading the [Porto Document](https://github.com/Mahmoudz/Porto) before getting started, is a great
-investment of time.
+- **App Section**: это единственный раздел по умолчанию, который предоставляет Apiato, он содержит все контейнеры по умолчанию. Вы можете создавать дополнительные разделы в любое время и переименовывать их по своему усмотрению. (например: Inventory Section, Shipping Section, Order Section, Payment Section...)
+- **The Vendor**: это специальная Секция, она содержит только установленные и повторно используемые Контейнеры. Аналогично каталогу vendor в корне. Любой Секции разрешено зависеть от Vendor Секции.
 
 ---
 
+Потратьте 30 минут на чтение [Porto Document](https://github.com/Mahmoudz/Porto) прежде чем приступить к работе, это отличная инвестиция времени.
 
-### Create a custom Container {#porto-new-container}
+---
 
-#### Using the Code Generator: {#porto-new-container-code-generator}
+
+### Создание собственного Контейнера {#porto-new-container}
+
+#### Используем генератор кода: {#porto-new-container-code-generator}
 
 ```
 php artisan apiato:generate:container
 ```
 
-Refer to the [code generator](../core-features/code-generator) page for more details.
+Обратитесь к [code generator](../core-features/code-generator) странице за подробностями.
 
-#### Container Conventions {#containter-conventions}
+#### Соглашения по наименованиям Контенеров {#containter-conventions}
 
-- Containers name SHOULD start with Capital. Use CamelCase to rename Containers.
-- Namespace should be the same as the container name, (if container name is "Printer" the namespace should be
+- Название контейнера ДОЛЖНО начинаться с заглавной буквы. Используйте camelCase для переименования контейнеров.
+- Пространство имен должно совпадать с именем контейнера (если имя контейнера "Printer", пространство имен должно быть
   `App\Containers\SectionName\Printer`).
-- Container MAY be named anything, however a good practice is to name it to its most important Model name.
-  *Example: If the User Story is (User can create a Store and Store can have Items) then we you could have 3
-  Containers (User, Store and Item).*
+- Контейнер МОЖЕТ называться как угодно, однако рекомендуется называть его по наиболее важному имени Модели.
+  *Пример: Если История Пользователя (Пользователь может создать Store, и Store может иметь Items), то у нас может быть 3 Контейнера (User, Store and Item).* 
   

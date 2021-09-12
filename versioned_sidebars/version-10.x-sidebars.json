@@ -42,11 +42,11 @@
     {
       "collapsed": true,
       "type": "category",
-      "label": "Features",
+      "label": "Возможности",
       "items": [
         {
           "collapsed": true,
-          "label": "Core Features",
+          "label": "Основные возможности",
           "type": "category",
           "items": [
             {
@@ -113,13 +113,13 @@
         },
         {
           "collapsed": true,
-          "label": "Additional Features",
+          "label": "Дополнительные возможности",
           "type": "category",
           "items": [
             {
               "collapsed": true,
               "type": "category",
-              "label": "Apiato Containers",
+              "label": "Apiato Контейнеры",
               "items": [
                 {
                   "type": "doc",
@@ -154,7 +154,7 @@
             {
               "collapsed": true,
               "type": "category",
-              "label": "Community Containers",
+              "label": "Контейнеры Сообщества",
               "items": [
                 {
                   "type": "doc",
@@ -169,11 +169,11 @@
     {
       "collapsed": true,
       "type": "category",
-      "label": "Components",
+      "label": "Компоненты",
       "items": [
         {
           "collapsed": true,
-          "label": "Main Components",
+          "label": "Основные компоненты",
           "type": "category",
           "items": [
             {
@@ -220,7 +220,7 @@
         },
         {
           "collapsed": true,
-          "label": "Optional Components",
+          "label": "Дополнительные компоненты",
           "type": "category",
           "items": [
             {
@@ -297,7 +297,7 @@
     },
     {
       "collapsed": true,
-      "label": "Miscellaneous",
+      "label": "Разное",
       "type": "category",
       "items": [
         {
