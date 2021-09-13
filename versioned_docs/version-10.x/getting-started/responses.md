@@ -1,26 +1,25 @@
 ---
-title: Responses
+title: Ответы
 ---
 
-* [Apiato Response](#response)
-* [Default Apiato Responses Payload](#default-response-payload)
-* [Change the default Response payload](#change-default-response-payload)
+* [Apiato Ответ](#response)
+* [Полезная нагрузка ответов Apiato по умолчанию](#default-response-payload)
+* [Изменение полезной нагрузки ответа по умолчанию](#change-default-response-payload)
 * [Resource Keys](#resource-keys)
-* [Error Responses formats](#error-response-formats)
-* [Building a Responses from the Controller](#building-response-from-controller)
+* [Форматы сообщений об ошибках](#error-response-formats)
+* [Получение ответов от контроллера](#building-response-from-controller)
 
-### Apiato Response {#response}
+### Apiato Ответ {#response}
 
-In Apiato you can define your own response payload or use one of the supported serializers.
+В Apiato вы можете определить свой собственный ответ или использовать один из поддерживаемых сериализаторов.
 
-Currently, the supported serializers are (`ArraySerializer`, `DataArraySerializer` and `JsonApiSerializer`). As provided
-by [Fractal](http://fractal.thephpleague.com/transformers/).
+В настоящее время поддерживаются сериализаторы: (`ArraySerializer`, `DataArraySerializer` и `JsonApiSerializer`). Как предусмотрено [Fractal](http://fractal.thephpleague.com/transformers/).
 
-By default, Apiato uses `DataArraySerializer`. Below is an example of the response payload.
+По умолчанию Apiato использует `DataArraySerializer`. Ниже приведен пример полезной нагрузки ответа.
 
-### Default Apiato Responses Payload: {#default-response-payload}
+### Полезная нагрузка ответов Apiato по умолчанию: {#default-response-payload}
 
-`DataArraySerializer` response payload looks like this:
+`DataArraySerializer` полезная нагрузка ответа выглядит так:
 
 ```json
 {
@@ -66,9 +65,9 @@ By default, Apiato uses `DataArraySerializer`. Below is an example of the respon
 }
 ```
 
-**Paginated response:**
+**Постраничный ответ:**
 
-When data is paginated the response payload will contain a `meta` description about the pagination.
+Когда данные разбиты на страницы, полезная нагрузка ответа будет содержать `meta` описание о нумерации страниц.
 
 ```json
 {
@@ -92,52 +91,49 @@ When data is paginated the response payload will contain a `meta` description ab
 }
 ```
 
-**Includes:**
+**Включает в себя:**
 
-Informs the User about what relationships can be included in the response. Example: `?include=tags,user`
+Информирование пользователя о том, какие отношения могут быть включены в ответ. Пример: `?include=tags,user`
 
-For more details read the `Relationships` section in the [Query Parameters](../core-features/query-parameters#relationships-include) page.
+Подробнее читайте в `Relationships` разделе на [Query Parameters](../core-features/query-parameters#relationships-include) странице.
 
-### Change the default Response payload: {#change-default-response-payload}
+### Изменение полезной нагрузки ответа по умолчанию: {#change-default-response-payload}
 
-The default response format (specification) is the `DataArray` Fractal Serializer (`League\Fractal\Serializer\DataArraySerializer`).
+Формат ответа по умолчанию (спецификация) - это `DataArray` Fractal Serializer (`League\Fractal\Serializer\DataArraySerializer`).
 
-To change the default Fractal Serializer open the `app/Ship/Configs/fractal.php` file and change the
+Чтобы изменить значение по умолчанию Fractal Serializer откройте `app/Ship/Configs/fractal.php` файл и измените
 
 ```text
 'default_serializer' => League\Fractal\Serializer\DataArraySerializer::class,
 ```
 
-The Supported Serializers are
+Поддерживаемые сериализаторы:
 * `ArraySerializer`
 * `DataArraySerializer`
 * `JsonApiSerializer`
 
-More details can be found at [Fractal](http://fractal.thephpleague.com/transformers/) and
+Более подробную информацию можно найти на сайте [Fractal](http://fractal.thephpleague.com/transformers/) и
 [Laravel Fractal Wrapper](https://github.com/spatie/laravel-fractal).
 
-In case of returning JSON Data (`JsonApiSerializer`), you may wish to check some JSON response standards:
+В случае возврата JSON данных (`JsonApiSerializer`), вы можете захотеть проверить некоторые стандарты ответа JSON:
 
-* [JSEND](https://labs.omniti.com/labs/jsend) (very basic)
-* [JSON API](http://jsonapi.org/format/) (very popular and well documented)
-* [HAL](http://stateless.co/hal_specification.html) (useful in case of hypermedia)
+* [JSEND](https://labs.omniti.com/labs/jsend) (очень простой)
+* [JSON API](http://jsonapi.org/format/) (очень популярен и хорошо задокументирован)
+* [HAL](http://stateless.co/hal_specification.html) (полезно в случае гипермедиа)
 
 ### Resource Keys {#resource-keys}
 
-The transformer allows appending a `ResourceKey` to the transformed resource. You can set the `ResourceKey` in your
-response payload in 2 ways:
+Трансформер позволяет добавить `ResourceKey` к преобразованному ресурсу. Вы можете установить `ResourceKey` в вашем ответе двумя способами:
 
-1. Manually set it via the respective parameter in the `$this->transform()` call. Note that this will only set the
-`top level` resource key and does not affect the resource keys from `included` resources!
-2. Specify it on the respective `Model`. By overriding $resourceKey, (`protected $resourceKey = 'FooBar';`).
-If no `$resourceKey` is defined at the `Model`, the `ShortClassName` is used as key. For example, the `ShortClassName` of
-the `App\Containers\AppSection\User\Models\User::class` is `User`.
+1. Установите его вручную с помощью соответствующего параметра в `$this->transform()` вызове. Обратите внимание, что это установит только
+`top level` resource key и не повлияет на resource keys из `included` ресурсов!
+2. Укажите его на соответствующей `Model`. Путем перезаписи $resourceKey, (`protected $resourceKey = 'FooBar';`).
+Если `$resourceKey` не определен в  `Model`, то `ShortClassName` будет использован как ключ. Например, `ShortClassName` в `App\Containers\AppSection\User\Models\User::class` это `User`.
 
-### Error Responses formats {#error-response-formats}
+### Форматы сообщений об ошибках {#error-response-formats}
 
-Visit each feature, e.g. the Authentication and there you will see how an unauthenticated response looks like, same
-for Authorization, Validation and so on.
+Посетите каждую функцию, например Authentication и там вы увидите, как выглядит неаутентифицированный ответ, то же самое для Authorization, Validation и так далее.
 
-## Building a Responses from the Controller: {#building-response-from-controller}
+## Получение ответов от контроллера: {#building-response-from-controller}
 
-Checkout the [Controller response builder helper functions](../main-components/controllers).
+Ознакомьтесь с [Controller response builder helper functions](../main-components/controllers).

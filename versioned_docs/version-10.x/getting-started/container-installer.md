@@ -1,17 +1,17 @@
 ---
-title: Container Installer
+title: Установщик контейнера
 ---
 
-  * [Downloading and Installing Containers](#downloading-and-installing-containers)
-  * [Developing a Container](#developing-a-container)
+  * [Скачивание и установка контейнеров](#downloading-and-installing-containers)
+  * [Разработка контейнера](#developing-a-container)
 
-### Downloading and Installing Containers {#downloading-and-installing-containers}
+### Скачивание и установка контейнеров {#downloading-and-installing-containers}
 
-Apiato provides an easy-to-use solution for downloading, installing and continuously updating containers from 3rd party developers.
+Apiato предоставляет простое в использовании решение для загрузки, установки и постоянного обновления контейнеров от сторонних разработчиков.
 
-As an application developer, you simply need to include the respective `vendor/project` to the`composer.json`.
+Как разработчику приложения вам просто нужно включить соответствующий `vendor/project` в`composer.json`.
 
-For example, your `/composer.json` file may look something like this:
+Например, ваш `/composer.json` файл может выглядеть примерно так:
 
 ```json
 {
@@ -21,29 +21,25 @@ For example, your `/composer.json` file may look something like this:
 }
 ```
 
-You just need to call `composer update` in order to install the respective packages. The package (e.g., the container)
-`apiato/settings-container` is then installed to the `app/Containers/VendorSection` folder. However, the developer of the package
-needs to follow some basic guidelines listed below.
+Вам просто нужно вызвать `composer update` для установки соответствующих пакетов. Пакет (например, контейнер)
+`apiato/settings-container` затем устанавливается в `app/Containers/VendorSection` папку. Однако разработчик пакета должен следовать некоторым основным рекомендациям, перечисленным ниже.
 :::caution Warning
-**Do not** modify content within a downloaded container, as it will be overwritten if you call `composer update`.
+**Не** изменяйте содержимое в загруженном контейнере, так как оно будет перезаписано, если вы вызовете `composer update`.
 :::
 
-### Modifying Containers
+### Изменение контейнеров
 
-To modify the code of this container usually you just need to copy the container to `AppSection`
-(or any of your custom sections) and update the namespaces. (See each container documentation for more details)
+Чтобы изменить код этого контейнера, обычно вам просто нужно скопировать контейнер в `AppSection`
+(или любой из ваших настраиваемых разделов) и обновить пространства имен. (Смотрите документацию по каждому контейнеру для получения более подробной информации)
 
-### Developing a Container {#developing-a-container}
+### Разработка контейнера {#developing-a-container}
 
-Developing a container that can be used by others is quite easy. Basically, you can `extract` already existing functionality
-in a new container and provide the features. Note that you need to upload the container to `GitHub` and then release
-it on `Packagist` in order for it to be available via `Composer`. Please see a respective tutorial how to submit a package
-to `GitHub` and release it via `Packagist`.
+Разработка контейнера, который может быть использован другими, довольно проста. В принципе, вы можете "извлечь" уже существующую функциональность в новый контейнер и предоставить эти функции. Обратите внимание, что вам нужно загрузить контейнер в `GitHub` а затем зарегистрировать его на `Packagist` чтобы он был доступен через `Composer`. См. Соответствующее руководство, как отправить пакет в `GitHub` и выпустить его через` Packagist`.
 
-In particular, the only thing that needs to be done, when developing a container is to provide a specific `composer.json`
-file within the main folder of the container.
+В частности, единственное, что нужно сделать при разработке контейнера, - это предоставить определенный `composer.json`
+файл в основной папке контейнера.
 
-An example of such a `composer.json` file is shown below:
+Пример такого `composer.json` файла показан ниже:
 
 ```json
 {
@@ -64,9 +60,7 @@ An example of such a `composer.json` file is shown below:
 }
 ```
 
-**Important Information:**
-* You **must** add the respective `type : apiato-container` to the composer file. This way, the custom installer is used
-that allows installing/updating containers.
-* You **must** provide the key `extra.apiato.container.name`. This key indicates the name of the folder (e.g., container)
-when installing the package to the `/app/ContainersVendorSection` folder. In the shown example, the container would be installed to
+**Важная информация:**
+* Вы **должны** добавить соответствующие `type : apiato-container` в файл композера. Таким образом, используется специальный установщик, позволяющий устанавливать обновляемые контейнеры..
+* Вы **должны** предоставить ключ `extra.apiato.container.name`. Этот ключ указывает имя папки (например, контейнера) при установке пакета в `/app/ContainersVendorSection` папку. В показанном примере контейнер будет установлен в
 `app/Containers/VendorSection/Foo`.
