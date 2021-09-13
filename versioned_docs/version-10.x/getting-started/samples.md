@@ -1,5 +1,5 @@
 ---
-title: Samples
+title: Примеры
 ---
 
 * [The basic flow](#basic-flow)
@@ -9,20 +9,19 @@ title: Samples
 * [Sample User Response](#sample-user-response)
 
 
-### The basic flow {#basic-flow}
+### Основной поток {#basic-flow}
 
-When an HTTP request is received, it first hits your predefined Endpoint (each endpoint live in its own Route file).
+Когда HTTP-запрос получен, он сначала попадает в вашу предопределенный Endpoint (каждый Endpoint находится в своем собственном файле маршрута).
 
-### Sample Route Endpoint {#sample-route-endpoint}
+### Пример Endpoint маршрута {#sample-route-endpoint}
 
 ```php
 Route::get('/hello', [Controller::class, 'sayHello']);
 ```
 
-After the user makes a request to the endpoint `[GET] www.api.apiato.com/v1/hello` it calls the defined controller 
-function (`sayHello`).
+После того, как пользователь сделает запрос к эндпоинту `[GET] www.api.apiato.com/v1/hello` вызывается определенная функция контроллера (`sayHello`).
 
-### Sample Controller Function {#controller-function}
+### Пример функции контроллера {#controller-function}
 
 ```php
 class Controller extends ApiController
@@ -38,12 +37,11 @@ class Controller extends ApiController
 }
 ```
 
-This function takes a Request class `SayHelloRequest` to automatically checks if the user has the right access to this 
-endpoint. _Only if the user has access, it proceeds to the function body._
+Эта функция принимает класс запроса `SayHelloRequest` для автоматической проверки, есть ли у пользователя право доступа к этому эндпоинту. _Только если у пользователя есть доступ, он переходит к телу функции._
 
-Then the function calls an Action (`SayHelloAction`) to perform the business logic.
+Затем функция вызывает Action (`SayHelloAction`) для выполнения бизнес-логики.
 
-### Sample Action {#sample-action}
+### Action пример {#sample-action}
 
 ```php
 class SayHelloAction extends Action
@@ -55,13 +53,13 @@ class SayHelloAction extends Action
 }
 ```
 
-The Action can do anything then return a result (could be an Object, a String or anything).
+Действие может делать что угодно, а затем возвращать результат (может быть объектом, строкой или чем-то еще).
 
-When the Action finishes its job, the controller function gets ready to build a response.
+Когда Action завершит свою работу, функция контроллера готовится построить ответ.
 
-Json responses can be built using the helper function `json` (`$this->json(['foo' => 'bar']);`).
+Json ответ может быть построен с помощью helper функции `json` (`$this->json(['foo' => 'bar']);`).
 
-### Sample User Response {#sample-user-response}
+### Пример ответа пользователю {#sample-user-response}
 
 ```json
 [
