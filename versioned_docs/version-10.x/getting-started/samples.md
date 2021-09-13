@@ -2,11 +2,11 @@
 title: Примеры
 ---
 
-* [The basic flow](#basic-flow)
-* [Sample Route Endpoint](#sample-route-endpoint)
-* [Controller Function](#controller-function)
-* [Sample Action](#sample-action)
-* [Sample User Response](#sample-user-response)
+* [Основной поток](#basic-flow)
+* [Пример Endpoint маршрута](#sample-route-endpoint)
+* [Пример функции контроллера ](#controller-function)
+* [Пример Действия (Action)](#sample-action)
+* [Пример ответа пользователю](#sample-user-response)
 
 
 ### Основной поток {#basic-flow}
@@ -41,7 +41,7 @@ class Controller extends ApiController
 
 Затем функция вызывает Action (`SayHelloAction`) для выполнения бизнес-логики.
 
-### Action пример {#sample-action}
+### Пример Действия (Action) {#sample-action}
 
 ```php
 class SayHelloAction extends Action
