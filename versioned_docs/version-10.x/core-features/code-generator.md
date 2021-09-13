@@ -1,68 +1,68 @@
 ---
-title: Code Generator
+title: Генератор кода
 ---
 
-- [Introduction](#introduction)
-- [Available Code Generator Commands](#available-code-generator-commands)
-- [Demo](#demo)
-- [Custom Code Stubs](#custom-code-stubs)
-- [Contributing](#contributing)
+- [Введение](#introduction)
+- [Доступные команды генератора кода](#available-code-generator-commands)
+- [Демо](#demo)
+- [Настройка генератора кода](#custom-code-stubs)
+- [Сотрудничество](#contributing)
 
-## Introduction {#introduction}
+## Введение {#introduction}
 
-Code Generators are a nice way to speed up development by creating boiler-plate code based on your inputs. You may
-already be familiar with the Laravel code generators (`php artisan make:controller`). 
+Генераторы кода-это хороший способ ускорить разработку, создавая шаблонный код на основе ваших входных данных. Возможно
+, вы уже знакомы с генераторами кода Laravel (`php artisan make:controller`). 
 
-Apiato code generator works the same way. In addition, it can generate a full Container with fully working CRUD operations, including routes, requests, controller, Actions, Repositories, Models, Migrations, documentation.... and much more)
+Apiato для генератора кода работает точно так же. Кроме того, он может генерировать полный Container с полностью работающими операциями CRUD, включая маршруты, запросы, контроллер, Действия, Репозитории, Модели, Миграции, документацию.... и многое другое)
 
-## Available Code Generator Commands {#available-code-generator-commands}
+## Доступные команды генератора кода {#available-code-generator-commands}
 
-To see the list of code generators type `php artisan` and look for `apiato`.
+Чтобы просмотреть список генераторов кода, введите `php artisan` и найдите `apiato`.
 
 ``` text
-  php artisan apiato:generate:container        Create a Container for apiato from scratch
-  php artisan apiato:generate:action           Create an Action file for a Container
-  php artisan apiato:generate:configuration    Create a Configuration file for a Container
-  php artisan apiato:generate:container:api    Create a Container for apiato from scratch (API Part)
-  php artisan apiato:generate:container:web    Create a Container for apiato from scratch (WEB Part)
-  php artisan apiato:generate:controller       Create a controller for a container
-  php artisan apiato:generate:event            Create a new Event class and its corresponding Handler
-  php artisan apiato:generate:eventhandler     Create a new EventHandler class
-  php artisan apiato:generate:exception        Create a new Exception class
-  php artisan apiato:generate:job              Create a new Job class
-  php artisan apiato:generate:mail             Create a new Mail class
-  php artisan apiato:generate:migration        Create an "empty" migration file for a Container
-  php artisan apiato:generate:model            Create a new Model class
-  php artisan apiato:generate:notification     Create a new Notification class
-  php artisan apiato:generate:readme           Create a README file for a Container
-  php artisan apiato:generate:repository       Create a new Repository class
-  php artisan apiato:generate:request          Create a new Request class
-  php artisan apiato:generate:route            Create a new Route class
-  php artisan apiato:generate:seeder           Create a new Seeder class
-  php artisan apiato:generate:serviceprovider  Create a ServiceProvider for a Container
-  php artisan apiato:generate:subaction        Create a new SubAction class
-  php artisan apiato:generate:task             Create a Task file for a Container
-  php artisan apiato:generate:test:functional  Create a Functional Test file.
-  php artisan apiato:generate:test:testcase    Create the TestCase file.
-  php artisan apiato:generate:test:unit        Create a Unit Test file.
-  php artisan apiato:generate:transformer      Create a new Transformer class for a given Model
-  php artisan apiato:generate:value            Create a new Value class
+  php artisan apiato:generate:container        Создайте контейнер для apiato с нуля
+  php artisan apiato:generate:action           Создать файл Действия (Action) для Контейнера
+  php artisan apiato:generate:configuration    Создать конфигурационный файл для Контейнера
+  php artisan apiato:generate:container:api    Создайте Контейнер для apiato с нуля (API Part)
+  php artisan apiato:generate:container:web    Создайте Контейнер для apiato с нуля (WEB Part)
+  php artisan apiato:generate:controller       Создать Контроллер (Controller) для контейнера
+  php artisan apiato:generate:event            Создайте новый класс Событие (Event) и соответствующий ему обработчик
+  php artisan apiato:generate:eventhandler     Создайте новый класс Обработчика события
+  php artisan apiato:generate:exception        Создайте новый класс Исключения (Exception)
+  php artisan apiato:generate:job              Создать новый Job класс
+  php artisan apiato:generate:mail             Создать новый Mail класс
+  php artisan apiato:generate:migration        Создать "пустой" миграционный файл для Контейнера
+  php artisan apiato:generate:model            Создать новый класс Модели (Model)
+  php artisan apiato:generate:notification     Создать новый класс Notification 
+  php artisan apiato:generate:readme           Создать README файл для Контенера
+  php artisan apiato:generate:repository       Создать новый Repository класс
+  php artisan apiato:generate:request          Создать новый Request класс
+  php artisan apiato:generate:route            Создать новый Route класс
+  php artisan apiato:generate:seeder           Создать новый Seeder класс
+  php artisan apiato:generate:serviceprovider  Создать ServiceProvider для Контейнера
+  php artisan apiato:generate:subaction        Создать новый SubAction класс
+  php artisan apiato:generate:task             Создать Task файл для Контейнера
+  php artisan apiato:generate:test:functional  Создать Functional Test файл.
+  php artisan apiato:generate:test:testcase    Создать TestCase файл.
+  php artisan apiato:generate:test:unit        Создать Unit Test файл.
+  php artisan apiato:generate:transformer      Создать новый Transformer класс для данной Модели
+  php artisan apiato:generate:value            Создать новый Value класс
 ```
 
-To get more info about each command, add `--help` to the command. Example: `php artisan apiato:generate:route --help`. The help page shows all options, which can be directly passed to the command.
+Чтобы получить дополнительную информацию о каждой команде, добавьте `--help` к команде. Пример: `php artisan apiato:generate:route --help`. На странице справки показаны все параметры, которые могут быть непосредственно переданы команде.
 
-If you do not provide respective information via the command line options, a wizard will be displayed to guide you through.
+Если вы не предоставите соответствующую информацию с помощью параметров командной строки, отобразится мастер, который поможет вам.
 
-For example, you can directly call `php artisan apiato:generate:controller --file=UserController` to directly specify the class
-to be generated. The wizard, however, will ask you for the `--section` and `--container` as well.
+Например, вы можете напрямую вызвать `php artisan apiato:generate:controller --file=UserController` чтобы напрямую указать класс
+, который будет сгенерирован. Мастер, однако, попросит вас `--section` и `--container` также.
 
-Note that **all** generators automatically inherit the options `--section`, `--container` and `--file` (these are documented
-as well in the help page). Furthermore, a generator may have specific options as well (e.g., the `--ui` (user-interface)
-to generate something for).
+Обратите внимание, что **все** генераторы автоматически наследуют параметры `--section`, `--container` и `--file` (они
+также задокументированы на странице справки). Кроме того, генератор также может иметь специфические опции (такие как  `--ui` (user-interface)
+для генерации чего-то еще).
 
-## Demo {#demo}
+## Демо {#demo}
 
-#### Generating a Route (endpoint) file: {#generating-a-route-endpoint-file}
+#### Создание маршрута (endpoint) file: {#generating-a-route-endpoint-file}
 ```text
 $ php artisan apiato:generate:route
 
@@ -103,23 +103,22 @@ Route generated successfully.
 
 ```
 
-#### Result {#result}
+#### Результат {#result}
 
-`CreateCar.v1.public.php` file will be created in `App\Containers\AppSection\Car\UI\API\Routes\`
+`CreateCar.v1.public.php` файл будет создан в `App\Containers\AppSection\Car\UI\API\Routes\`
 
-## Custom Code Stubs (aka. Customizing the Generator) {#custom-code-stubs}
+## Настройка генератора кода (aka. Customizing the Generator) {#custom-code-stubs}
 
-If you don't like the automatically generated code (or would like to adapt it to your specific needs) you can do this quite easily.
 
-The existing `Generators` allow to read `custom stubs` from the `app/Ship/Generators/CustomStubs` folder. The name of 
-file needs to be the same as in `vendor/apiato/core/Generator/Stubs`.
+Если вам не нравится автоматически сгенерированный код (или вы хотели бы адаптировать его к вашим конкретным потребностям), вы можете сделать это довольно легко.
 
-Say, if you like to change the `config.stub`, simply copy the file to `app/Ship/Generators/CustomStubs/config.stub` and 
-start adapting it to your needs. 
+Существующие генераторы (`Generators`) позволяют считывать "пользовательские заглушки" (`custom stubs`) из `app/Ship/Generators/CustomStubs` папки. Имя файла должно быть таким же, как в `vendor/apiato/core/Generator/Stubs`.
 
-If you run the respective command (e.g., in this case `php artisan apiato:generate:configuration`) 
-this would read your specific `config.stub` file instead the pre-defined one!
+Скажем, если вы хотите изменить `config.stub`, просто скопируйте файл в `app/Ship/Generators/CustomStubs/config.stub` и начните адаптировать его под свои нужды. 
 
-## Contributing {#contributing}
+Если вы запустите соответствующую команду (например, в этом случае `php artisan apiato:generate:configuration`) 
+это будет прочитан ваш конкретный `config.stub` файл вместо предопределенного!
 
-If you would like to add your own generators, please check out the [Contribution Guide](../contribution-guide).
+## Сотрудничество {#contributing}
+
+Если вы хотите добавить свои собственные генераторы, ознакомьтесь с [Contribution Guide](../contribution-guide).
